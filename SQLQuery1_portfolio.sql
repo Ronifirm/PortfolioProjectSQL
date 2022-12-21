@@ -99,8 +99,8 @@ from PopvsVax
 
 --TEMP TABLE
 
-drop table if exists #PercentPopupationVaccinated
-create table #PercentPopupationVaccinated
+drop table if exists #PercentPopulationVaccinated
+create table #PercentPopulationVaccinated
 (
 continent nvarchar (255),
 location nvarchar (255),
@@ -109,7 +109,7 @@ population numeric,
 new_vaccinations numeric,
 RollingPeopleVaccinated numeric
 )
-insert into #PercentPopupationVaccinated
+insert into #PercentPopulationVaccinated
 select dea.continent, dea.location, dea.date, dea.population, vax.new_vaccinations
 ,sum(convert(bigint,vax.new_vaccinations)) over (partition by dea.location order by dea.location, dea.date) as RollingPeopleVaccinated
 --,(RollingPeopleVaccinated/population)*100
@@ -125,7 +125,7 @@ from #PercentPopupationVaccinated
 
 --Creating View to Store Data for later Visualization
 
-create view PercentPopupationVaccinated as
+create view PercentPopulationVaccinated as
 select dea.continent, dea.location, dea.date, dea.population, vax.new_vaccinations
 ,sum(convert(bigint,vax.new_vaccinations)) over (partition by dea.location order by dea.location, dea.date) as RollingPeopleVaccinated
 --,(RollingPeopleVaccinated/population)*100
@@ -137,4 +137,4 @@ where dea.continent is not null
 --order by 2,3
 
 select *
-from PercentPopupationVaccinated
+from PercentPopulationVaccinated
