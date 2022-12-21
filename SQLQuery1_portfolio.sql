@@ -120,7 +120,7 @@ join PortfolioProject..CovidVax vax
 --where dea.continent is not null
 --order by 2,3
 select *, (RollingPeopleVaccinated/population)*100 as Percentage
-from #PercentPopupationVaccinated
+from #PercentPopulationVaccinated
 
 
 --Creating View to Store Data for later Visualization
